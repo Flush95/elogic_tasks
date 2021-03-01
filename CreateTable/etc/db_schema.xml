@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="elogic_shops" resource="default" engine="innodb" comment="Shops" charset="utf8" collation="utf8_general_ci" >
+        <column name="shop_id" xsi:type="int" padding="11" unsigned="true" identity="true" nullable="false" comment="Shop Id"/>
+        <column name="shop_name" xsi:type="varchar" nullable="false" length="123" comment="Shop Name"/>
+        <column name="description" xsi:type="text" nullable="false" comment="Shop Description"/>
+        <column name="img_url" xsi:type="text" nullable="false" comment="Image Url"/>
+        <column name="shop_city" xsi:type="text" nullable="false" comment="City"/>
+        <column name="shop_zip" xsi:type="text" nullable="false" comment="ZIP Code"/>
+        <column name="shop_state" xsi:type="text" nullable="false" comment="State"/>
+        <column name="shop_address" xsi:type="text" nullable="false" comment="Address"/>
+        <column name="work_schedule" xsi:type="text" nullable="false" comment="Standard work schedule"/>
+        <column name="holiday_work_schedule" xsi:type="text" nullable="false" comment="Work schedule at holidays"/>
+
+        <column name="latitude" xsi:type="decimal" precision="5" scale="5" nullable="false" unsigned="false" comment="Geographical Latitude"/>
+        <column name="longitude" xsi:type="decimal" precision="5" scale="5" nullable="false" unsigned="false" comment="Geographical Longitude"/>
+
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="shop_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="SHOP_NAME">
+            <column name="shop_name"/>
+        </constraint>
+    </table>
+</schema>

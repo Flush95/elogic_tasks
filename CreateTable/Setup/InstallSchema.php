@@ -23,9 +23,9 @@ class InstallSchema implements InstallSchemaInterface
      */
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
-        $this->installWorkSchedule($setup, $this->shopWorkSchedule);
+        /*$this->installWorkSchedule($setup, $this->shopWorkSchedule);
         $this->installAddresses($setup, $this->addressesTableName);
-        $this->installShop($setup, $this->shopsTableName);
+        $this->installShop($setup, $this->shopsTableName);*/
     }
 
     /**

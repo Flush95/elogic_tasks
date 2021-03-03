@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Elogic_AdminCrud::crud" title="CRUD" translate="title" module="Elogic_AdminCrud" sortOrder="50" dependsOnModule="Elogic_AdminCrud" resource="Elogic_AdminCrud::crud"/>
+        <add id="Elogic_AdminCrud::crud_operations" title="CRUD ACTION" translate="title" module="Elogic_AdminCrud" parent="Elogic_AdminCrud::crud" sortOrder="10" dependsOnModule="Elogic_AdminCrud" action="admin_crud/maincontroller" resource="MyCompany_ExampleAdminNewPage::crud"/>
+    </menu>
+</config>

@@ -31,6 +31,7 @@ class Update extends Action
         $resultJson = $this->jsonFactory->create();
         $error = false;
         $messages = [];
+
         $this->logger->info(json_encode($this->getRequest()->getParams()));
         $this->logger->debug(json_encode($this->getRequest()->getParams()));
 
@@ -47,7 +48,7 @@ class Update extends Action
                         $model->setData(array_merge($model->getData(), $postItems[$model_id]));
                         $model->save();
                     } catch (Exception $e) {
-                        $messages[] = "[Mytesting ID: {$model_id}]  {$e->getMessage()}";
+                        $messages[] = "[ID: {$model_id}]  {$e->getMessage()}";
                         $error = true;
                     }
                 }

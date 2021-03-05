@@ -33,7 +33,7 @@ class Save extends \Magento\Catalog\Block\Adminhtml\Product\Edit\Button\Generic
                         'actions' => [
                             [
                                 'targetName' => 'elogic_admincrud_form.elogic_admincrud_form',
-                                'actionName' => 'submit',
+                                'actionName' => 'save',
                                 'params' => [
                                     false
                                 ]

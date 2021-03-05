@@ -38,23 +38,12 @@ class Create extends Action
         unset($data['back']);
         unset($data['form_key']);
 
-
-        /*$shop_name = $data['shop_name'];
-        $description = $data['description'];
-        $img_url = $data['img_url'];
-        $shop_city = $data['shop_city'];
-        $shop_zip = $data['shop_zip'];
-        $shop_state = $data['shop_state'];
-        $shop_address = $data['shop_address'];
-        $work_schedule = $data['work_schedule'];
-        $holiday_work_schedule = $data['holiday_work_schedule'];
-        $latitude = $data['latitude'];
-        $longitude = $data['longitude'];*/
+        $data['img_url'] = $data['img_url'][0]['url'];
 
         $shopModel = $this->storeModel->setData($data);
 
         $this->resourceModel->save($shopModel);
-        //RETURN ERROR ON VALIDATION FORM FAIL
+
         $this->messageManager->addSuccessMessage(__('Shop have been created.'));
 
         return $this->_redirect("admin_crud/maincontroller/index");

@@ -137,7 +137,7 @@
                 </item>
             </argument>
         </column>
-        <column name="img_url">
+        <!--<column name="img_url">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
@@ -148,6 +148,20 @@
                         </item>
                     </item>
                     <item name="label" xsi:type="string" translate="true">Image Url</item>
+                </item>
+            </argument>
+        </column>-->
+        <column name="img_url" class="Elogic\AdminCrud\Ui\Component\Listing\Columns\Column\Thumbnail">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/thumbnail</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                    <item name="altField" xsi:type="string">title</item>
+                    <!--
+                        UNCOMMENT TO SEE IMAGE PREVIEW
+                        <item name="has_preview" xsi:type="string">1</item>
+                    -->
+                    <item name="label" xsi:type="string" translate="true">Image</item>
                 </item>
             </argument>
         </column>

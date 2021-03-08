@@ -36,6 +36,7 @@ class Upload extends \Magento\Backend\App\Action
         $resultJson = $this->jsonFactory->create();
         $uploader = $this->_fileUploaderFactory->create(['fileId' => 'img_url']);
 
+
         $uploader->setAllowedExtensions(['jpg', 'jpeg', 'gif', 'png']);
 
         $uploader->setAllowRenameFiles(false);
@@ -45,7 +46,7 @@ class Upload extends \Magento\Backend\App\Action
         $path = $this->_filesystem->getDirectoryRead(DirectoryList::MEDIA)->getAbsolutePath('images/');
 
         $result = $uploader->save($path);
-        $result['path'] = str_replace('\\', '/', $result['path']);
+        $result['img_name'] = 'images/' . $uploader->getUploadedFileName();
         $result['url'] =  "/pub/media/images/" . $uploader->getUploadedFileName();
 
         return $resultJson->setData($result);

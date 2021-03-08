@@ -46,18 +46,6 @@
                 <item name="sortOrder" xsi:type="number">20</item>
             </item>
         </argument>
-        <!--<field name="shop_id">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Shop Id</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">shop_id</item>
-                    <item name="dataScope" xsi:type="string">shop_id</item>
-                </item>
-            </argument>
-        </field>-->
-
         <field name="shop_name">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -90,25 +78,6 @@
                 </validation>
             </settings>
         </field>
-
-
-        <!--<field name="img_url">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Image Url</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">img_url</item>
-                    <item name="dataScope" xsi:type="string">img_url</item>
-                </item>
-            </argument>
-            <settings>
-                <validation>
-                    <rule name="required-entry" xsi:type="boolean">true</rule>
-                </validation>
-            </settings>
-        </field>-->
-
         <field name="img_url">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -127,8 +96,6 @@
                 </item>
             </argument>
         </field>
-
-
         <field name="shop_city">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -142,7 +109,7 @@
             <settings>
                 <validation>
                     <rule name="required-entry" xsi:type="boolean">true</rule>
-                    <rule name="validate-alphanum-with-spaces" xsi:type="boolean">true</rule>
+                    <rule name="letters-with-basic-punc" xsi:type="boolean">true</rule>
                 </validation>
             </settings>
         </field>

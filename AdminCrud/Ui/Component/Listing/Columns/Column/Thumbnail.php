@@ -18,7 +18,9 @@ class Thumbnail extends Column
      */
     protected $storeManager;
 
+
     /**
+     * Thumbnail constructor.
      * @param ContextInterface $context
      * @param UiComponentFactory $uiComponentFactory
      * @param Image $imageHelper
@@ -53,16 +55,17 @@ class Thumbnail extends Column
                     $url = $this->storeManager->getStore()->getBaseUrl(
                         UrlInterface::URL_TYPE_MEDIA
                     ) . $item[$fieldName];
+                    //var_dump($url);
                 }
-
                 $item[$fieldName . '_src'] = $url;
                 $item[$fieldName . '_alt'] = $this->getAlt($item) ?: '';
-                $item[$fieldName . '_link'] = $this->urlBuilder->getUrl(
-                    'admin_crud/maincontroller/index',
+                /*$item[$fieldName . '_link'] = $this->urlBuilder->getUrl(
+                    'admin_crud/mainController/index',
                     ['shop_id' => $item['shop_id']]
-                );
+                );*/
                 $item[$fieldName . '_orig_src'] = $url;
             }
+
         }
 
         return $dataSource;

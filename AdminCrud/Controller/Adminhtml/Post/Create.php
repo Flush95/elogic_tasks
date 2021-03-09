@@ -1,6 +1,7 @@
 <?php
 namespace Elogic\AdminCrud\Controller\Adminhtml\Post;
 
+use Elogic\AdminCrud\Helper\Geo;
 use Elogic\AdminCrud\Model\ResourceModel\StoreResourceModel;
 use Elogic\AdminCrud\Model\StoreModel;
 use Magento\Backend\App\Action;
@@ -11,7 +12,6 @@ use Magento\Framework\Filesystem\Driver\File;
 
 class Create extends Action
 {
-    const API_KEY = 'AIzaSyAd_-xQlcrAeV0EDRBfDJzjbfyXxdBMXUM';
 
     /**
      * @var StoreResourceModel
@@ -49,13 +49,11 @@ class Create extends Action
 
         $data['img_url'] = $fileName;
 
-
         if (empty($data['latitude'] && $data['longitude'])) {
-            $geolocation = $this->getLatLon($data['shop_state'] . '+' . $data['shop_city'] . '+' . $data['shop_address']);
+            $geolocation = Geo::getCoordinates($data['shop_state'] . '+' . $data['shop_city'] . '+' . $data['shop_address']);
             $data['latitude'] = $geolocation['latitude'];
             $data['longitude'] = $geolocation['longitude'];
         }
-
 
         try {
             $shopModel = $this->storeModel->setData($data);
@@ -71,23 +69,5 @@ class Create extends Action
             $this->messageManager->addErrorMessage(__('Error occurred when creating shop.'));
         }
         return $this->_redirect("admin_crud/maincontroller/index");
-    }
-
-    private function getLatLon($address)
-    {
-        $formattedAddr = str_replace(' ', '+', $address);
-        $geocodeFromAddress = file_get_contents(
-            'https://maps.googleapis.com/maps/api/geocode/json?address=' .
-            $formattedAddr .
-            '&key=' . self::API_KEY .
-            '&sensor=false'
-        );
-        $output = json_decode($geocodeFromAddress);
-        $data = null;
-        if ($output->status == 'OK') {
-            $data['latitude'] = $output->results[0]->geometry->location->lat;
-            $data['longitude'] = $output->results[0]->geometry->location->lng;
-        }
-        return $data;
     }
 }

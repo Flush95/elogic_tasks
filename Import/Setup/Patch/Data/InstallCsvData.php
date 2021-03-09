@@ -2,6 +2,7 @@
 
 namespace Elogic\Import\Setup\Patch\Data;
 
+use Elogic\AdminCrud\Helper\Geo;
 use Exception;
 use Magento\Framework\File\Csv;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
@@ -75,6 +76,15 @@ class InstallCsvData implements DataPatchInterface, PatchVersionInterface
             foreach ($csvData as $rowNumber => $data) {
                 $insertedData = array_combine($columns, $data);
 
+                $latitude = $insertedData['latitude'];
+                $longitude = $insertedData['longitude'];
+
+                if (empty($latitude) || empty($longitude) ||
+                    !is_numeric($latitude) || !is_numeric($longitude)) {
+                    $coordinates = Geo::getCoordinates($insertedData['shop_state'] . '+' . $insertedData['shop_city'] . '+' . $insertedData['shop_address']);
+                    $insertedData['latitude'] = $coordinates['latitude'];
+                    $insertedData['longitude'] = $coordinates['longitude'];
+                }
                 $connection->insertOnDuplicate(
                     $tableName,
                     $insertedData,

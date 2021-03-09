@@ -1,15 +1,16 @@
 <?php
 namespace Elogic\AdminCrud\Controller\Adminhtml\MainController;
 
-
-use Magento\Framework\App\Action\Context;
-use Magento\Framework\App\ActionInterface;
+use Magento\Backend\App\Action\Context;
+use Magento\Backend\App\Action;
+use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\View\Result\PageFactory;
+use Elogic\AdminConfig\Helper\Data;
 
 /**
  * Class Index
  */
-class Index implements ActionInterface
+class Index extends Action
 {
     const MENU_ID = 'Elogic_AdminCrud::crud';
 
@@ -17,24 +18,35 @@ class Index implements ActionInterface
      * @var PageFactory
      */
     protected PageFactory $pageFactory;
-
     /**
-     * Index constructor.
-     *
-     * @param Context $context
-     * @param PageFactory $pageFactory
+     * @var Data
      */
-    public function __construct(Context $context, PageFactory $pageFactory)
+    private Data $data;
+
+
+    public function __construct(Context $context, PageFactory $pageFactory, Data $data)
     {
+        parent::__construct($context);
         $this->pageFactory = $pageFactory;
+        $this->data = $data;
     }
 
     public function execute()
     {
-        $resultPage = $this->pageFactory->create();
+
+        if (!$this->moduleEnabled()) {
+            $this->_forward('path/to/beautiful_life');
+        }
+
+        $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $resultPage->setActiveMenu(static::MENU_ID);
-        //$resultPage->getConfig()->getTitle()->prepend(__('Hello'));
+
 
         return $resultPage;
+    }
+
+    protected function moduleEnabled(): bool
+    {
+        return boolval($this->data->getModuleStatus());
     }
 }

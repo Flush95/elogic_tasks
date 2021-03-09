@@ -1,6 +1,6 @@
 <?php
 
-namespace Elogic\Import\Setup\Patch\Data;
+namespace Elogic\Import\Setup;
 
 use Elogic\AdminCrud\Helper\Geo;
 use Exception;
@@ -24,19 +24,26 @@ class InstallCsvData implements DataPatchInterface, PatchVersionInterface
     /**
      * @var string
      */
-    private string $csvFilePath;
+    private string $csvFilePath = "";
+    /**
+     * @var Geo
+     */
+    private Geo $geo;
 
     /**
      * InstallCsvData constructor.
      * @param ModuleDataSetupInterface $moduleDataSetup
      * @param Csv $csv
+     * @param Geo $geo
      */
     public function __construct(
         ModuleDataSetupInterface $moduleDataSetup,
-        Csv $csv
+        Csv $csv,
+        Geo $geo
     ) {
         $this->moduleDataSetup = $moduleDataSetup;
         $this->csv = $csv;
+        $this->geo = $geo;
     }
 
     /**
@@ -81,7 +88,7 @@ class InstallCsvData implements DataPatchInterface, PatchVersionInterface
 
                 if (empty($latitude) || empty($longitude) ||
                     !is_numeric($latitude) || !is_numeric($longitude)) {
-                    $coordinates = Geo::getCoordinates($insertedData['shop_state'] . '+' . $insertedData['shop_city'] . '+' . $insertedData['shop_address']);
+                    $coordinates = $this->geo->getCoordinates($insertedData['shop_state'] . '+' . $insertedData['shop_city'] . '+' . $insertedData['shop_address']);
                     $insertedData['latitude'] = $coordinates['latitude'];
                     $insertedData['longitude'] = $coordinates['longitude'];
                 }
@@ -125,7 +132,7 @@ class InstallCsvData implements DataPatchInterface, PatchVersionInterface
     /**
      * @return string
      */
-    private function getCsvFilePath(): string
+    public function getCsvFilePath(): string
     {
         return $this->csvFilePath;
     }

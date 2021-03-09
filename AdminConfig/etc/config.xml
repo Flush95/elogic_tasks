@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <admin_config_api>
+            <general>
+                <api_key>Enter your api key</api_key>
+            </general>
+        </admin_config_api>
+        <admin_config_module_status>
+            <general>
+                <enable>1</enable>
+            </general>
+        </admin_config_module_status>
+    </default>
+</config>

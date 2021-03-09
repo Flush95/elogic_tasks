@@ -1,18 +1,37 @@
 <?php
 namespace Elogic\AdminCrud\Helper;
 
+use Elogic\AdminConfig\Helper\Data;
+
 class Geo
 {
-    private const API_KEY = 'AIzaSyAd_-xQlcrAeV0EDRBfDJzjbfyXxdBMXUM';
     private const API_URL = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
 
-    public static function getCoordinates($address): array
+    /**
+     * @var Data
+     */
+    private Data $data;
+
+    /**
+     * Geo constructor.
+     * @param Data $data
+     */
+    public function __construct(Data $data)
+    {
+        $this->data = $data;
+    }
+
+    /**
+     * @param $address
+     * @return array
+     */
+    public function getCoordinates($address): array
     {
         $formattedAddr = str_replace(' ', '+', $address);
         $geocodeFromAddress = file_get_contents(
             self::API_URL .
             $formattedAddr .
-            '&key=' . self::API_KEY .
+            '&key=' . $this->data->getApiKey() .
             '&sensor=false'
         );
         $output = json_decode($geocodeFromAddress);

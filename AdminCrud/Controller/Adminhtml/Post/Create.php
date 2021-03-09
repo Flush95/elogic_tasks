@@ -25,17 +25,32 @@ class Create extends Action
      * @var File
      */
     private File $file;
+    /**
+     * @var Geo
+     */
+    private Geo $geo;
 
+
+    /**
+     * Create constructor.
+     * @param Context $context
+     * @param StoreResourceModel $resourceModel
+     * @param StoreModel $storeModel
+     * @param File $file
+     * @param Geo $geo
+     */
     public function __construct(
         Context $context,
         StoreResourceModel $resourceModel,
         StoreModel $storeModel,
-        File $file
+        File $file,
+        Geo $geo
     ) {
         parent::__construct($context);
         $this->resourceModel = $resourceModel;
         $this->storeModel = $storeModel;
         $this->file = $file;
+        $this->geo = $geo;
     }
 
     public function execute()
@@ -50,7 +65,7 @@ class Create extends Action
         $data['img_url'] = $fileName;
 
         if (empty($data['latitude'] && $data['longitude'])) {
-            $geolocation = Geo::getCoordinates($data['shop_state'] . '+' . $data['shop_city'] . '+' . $data['shop_address']);
+            $geolocation = $this->geo->getCoordinates($data['shop_state'] . '+' . $data['shop_city'] . '+' . $data['shop_address']);
             $data['latitude'] = $geolocation['latitude'];
             $data['longitude'] = $geolocation['longitude'];
         }
@@ -70,4 +85,5 @@ class Create extends Action
         }
         return $this->_redirect("admin_crud/maincontroller/index");
     }
+
 }

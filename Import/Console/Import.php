@@ -42,7 +42,7 @@ class Import extends Command
     {
         if ($path = $input->getOption(self::PATH)) {
             $objectManager = ObjectManager::getInstance();
-            $import = $objectManager->create('Elogic\Import\Setup\Patch\Data\InstallCsvData');
+            $import = $objectManager->create('Elogic\Import\Setup\InstallCsvData');
             $import->setCsvFilePath($path);
             $import->apply();
 

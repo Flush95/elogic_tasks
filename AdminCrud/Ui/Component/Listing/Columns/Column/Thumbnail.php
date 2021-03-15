@@ -2,6 +2,7 @@
 namespace Elogic\AdminCrud\Ui\Component\Listing\Columns\Column;
 
 use Magento\Catalog\Helper\Image;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
 use Magento\Framework\View\Element\UiComponentFactory;
@@ -12,12 +13,20 @@ class Thumbnail extends Column
 {
     const ALT_FIELD = 'title';
     const ROUTE_PATH = 'admin_crud/mainController/index';
-
+    const DEFAULT_IMG = 'default.png';
+    const PUB_MEDIA_PATH = 'pub/media/images/';
     /**
      * @var StoreManagerInterface
      */
-    protected $storeManager;
-
+    protected StoreManagerInterface $storeManager;
+    /**
+     * @var Image
+     */
+    private Image $imageHelper;
+    /**
+     * @var UrlInterface
+     */
+    private UrlInterface $urlBuilder;
 
     /**
      * Thumbnail constructor.
@@ -44,6 +53,11 @@ class Thumbnail extends Column
         parent::__construct($context, $uiComponentFactory, $components, $data);
     }
 
+    /**
+     * @param array $dataSource
+     * @return array
+     * @throws NoSuchEntityException
+     */
     public function prepareDataSource(array $dataSource): array
     {
         if (isset($dataSource['data']['items'])) {
@@ -51,11 +65,12 @@ class Thumbnail extends Column
 
             foreach ($dataSource['data']['items'] as & $item) {
                 $url = '';
-                if ($item[$fieldName] != '') {
-                    $url = $this->storeManager->getStore()->getBaseUrl(
-                        UrlInterface::URL_TYPE_MEDIA
-                    ) . $item[$fieldName];
-                    //var_dump($url);
+                $fileName = $item[$fieldName];
+                if ($fileName != '') {
+                    $url = $this->getImgPath() . $fileName;
+                    if (!file_exists(self::PUB_MEDIA_PATH . $fileName)) {
+                        $url = $this->getImgPath() . 'default/' . self::DEFAULT_IMG;
+                    }
                 }
                 $item[$fieldName . '_src'] = $url;
                 $item[$fieldName . '_alt'] = $this->getAlt($item) ?: '';
@@ -65,7 +80,6 @@ class Thumbnail extends Column
                 );*/
                 $item[$fieldName . '_orig_src'] = $url;
             }
-
         }
 
         return $dataSource;
@@ -75,5 +89,14 @@ class Thumbnail extends Column
     {
         $altField = $this->getData('config/img_url') ?: self::ALT_FIELD;
         return isset($row[$altField]) ? $row[$altField] : null;
+    }
+
+    /**
+     * @return string
+     * @throws NoSuchEntityException
+     */
+    private function getImgPath(): string
+    {
+        return $this->storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA) . 'images/';
     }
 }

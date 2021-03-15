@@ -2,12 +2,14 @@
 
 namespace Elogic\AdminCrud\Block\Adminhtml\Button;
 
+use Magento\Catalog\Block\Adminhtml\Product\Edit\Button\Generic;
+use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 use Magento\Ui\Component\Control\Container;
 
 /**
  * Class Save
  */
-class Save extends \Magento\Catalog\Block\Adminhtml\Product\Edit\Button\Generic
+class Save extends Generic implements ButtonProviderInterface
 {
     /**
      * {@inheritdoc}
@@ -21,11 +23,11 @@ class Save extends \Magento\Catalog\Block\Adminhtml\Product\Edit\Button\Generic
             'sort_order' => 10
         ];
     }*/
-    public function getButtonData()
+    public function getButtonData(): array
     {
 
         return [
-            'label' => __('Create'),
+            'label' => __('Save'),
             'class' => 'save primary',
             'data_attribute' => [
                 'mage-init' => [
@@ -35,14 +37,17 @@ class Save extends \Magento\Catalog\Block\Adminhtml\Product\Edit\Button\Generic
                                 'targetName' => 'elogic_admincrud_form.elogic_admincrud_form',
                                 'actionName' => 'save',
                                 'params' => [
-                                    false
+                                    true,
+                                    [
+                                        'back' => 'continue'
+                                    ]
                                 ]
                             ]
                         ]
                     ]
                 ]
             ],
-            'class_name' => Container::SPLIT_BUTTON
+            'class_name' => Container::DEFAULT_CONTROL
         ];
     }
 

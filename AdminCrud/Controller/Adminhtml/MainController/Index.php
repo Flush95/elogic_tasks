@@ -1,11 +1,11 @@
 <?php
 namespace Elogic\AdminCrud\Controller\Adminhtml\MainController;
 
-use Magento\Backend\App\Action\Context;
+use Elogic\AdminConfig\Helper\Data;
 use Magento\Backend\App\Action;
+use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\View\Result\PageFactory;
-use Elogic\AdminConfig\Helper\Data;
 
 /**
  * Class Index
@@ -23,7 +23,6 @@ class Index extends Action
      */
     private Data $data;
 
-
     public function __construct(Context $context, PageFactory $pageFactory, Data $data)
     {
         parent::__construct($context);
@@ -33,14 +32,12 @@ class Index extends Action
 
     public function execute()
     {
-
         if (!$this->moduleEnabled()) {
             $this->_forward('path/to/beautiful_life');
         }
 
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $resultPage->setActiveMenu(static::MENU_ID);
-
 
         return $resultPage;
     }

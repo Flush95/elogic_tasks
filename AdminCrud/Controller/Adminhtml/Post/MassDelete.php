@@ -11,9 +11,6 @@ use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Ui\Component\MassAction\Filter;
 
-/**
- * Class Index
- */
 class MassDelete extends Action
 {
     private RequestInterface $request;
@@ -58,7 +55,7 @@ class MassDelete extends Action
 
         foreach ($collection as $item) {
             $objectManager = ObjectManager::getInstance();
-            $product = $objectManager->create('Elogic\AdminCrud\Model\StoreModel')->load($item->getId());
+            $product = $objectManager->create('Elogic\AdminCrud\Model\Shop')->load($item->getId());
             $product->delete();
         }
 

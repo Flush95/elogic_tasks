@@ -9,7 +9,30 @@
     <virtualType name="Elogic\AdminCrud\Model\ResourceModel\StoreModelCollections\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">elogic_shops</argument>
-            <argument name="resourceModel" xsi:type="string">Elogic\AdminCrud\Model\ResourceModel\StoreResourceModel</argument>
+            <argument name="resourceModel" xsi:type="string">Elogic\AdminCrud\Model\ResourceModel\ShopResource</argument>
         </arguments>
     </virtualType>
+    <preference for="Elogic\StoreLocator\Api\StoreRepositoryInterface" type="Elogic\AdminCrud\Model\ShopRepository"/>
+    <preference for="Elogic\StoreLocator\Api\Data\ShopInterface" type="Elogic\AdminCrud\Model\Shop"/>
+
+
+
+    <virtualType name="Elogic\AdminCrud\Model\Image\ImageUpload" type="Elogic\AdminCrud\Model\Image\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">images</argument>
+            <argument name="basePath" xsi:type="string">images</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Elogic\AdminCrud\Controller\Adminhtml\Post\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Elogic\AdminCrud\Model\Image\ImageUpload</argument>
+        </arguments>
+    </type>
+
 </config>

@@ -2,8 +2,8 @@
 
 namespace Elogic\AdminCrud\Model\ResourceModel\StoreModelCollections;
 
-use Elogic\AdminCrud\Model\ResourceModel\StoreResourceModel;
-use Elogic\AdminCrud\Model\StoreModel;
+use Elogic\AdminCrud\Model\ResourceModel\ShopResource;
+use Elogic\AdminCrud\Model\Shop;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
 class Collection extends AbstractCollection
@@ -12,6 +12,6 @@ class Collection extends AbstractCollection
 
     protected function _construct()
     {
-        $this->_init(StoreModel::class, StoreResourceModel::class);
+        $this->_init(Shop::class, ShopResource::class);
     }
 }

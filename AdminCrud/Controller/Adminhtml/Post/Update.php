@@ -43,7 +43,7 @@ class Update extends Action
                 $error = true;
             } else {
                 foreach (array_keys($postItems) as $model_id) {
-                    $model = $this->_objectManager->create('Elogic\AdminCrud\Model\StoreModel')->load($model_id);
+                    $model = $this->_objectManager->create('Elogic\AdminCrud\Model\Shop')->load($model_id);
                     try {
                         $model->setData(array_merge($model->getData(), $postItems[$model_id]));
                         $model->save();

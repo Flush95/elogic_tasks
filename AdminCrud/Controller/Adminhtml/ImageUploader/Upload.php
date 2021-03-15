@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Elogic\AdminCrud\Controller\Adminhtml\ImageUploader;
 
+use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Filesystem;
 use Magento\MediaStorage\Model\File\UploaderFactory;
 
-class Upload extends \Magento\Backend\App\Action
+class Upload extends Action
 {
     protected $_fileUploaderFactory;
     private Filesystem $_filesystem;
@@ -36,11 +37,8 @@ class Upload extends \Magento\Backend\App\Action
         $resultJson = $this->jsonFactory->create();
         $uploader = $this->_fileUploaderFactory->create(['fileId' => 'img_url']);
 
-
         $uploader->setAllowedExtensions(['jpg', 'jpeg', 'gif', 'png']);
-
         $uploader->setAllowRenameFiles(false);
-
         $uploader->setFilesDispersion(false);
 
         $path = $this->_filesystem->getDirectoryRead(DirectoryList::MEDIA)->getAbsolutePath('images/');
